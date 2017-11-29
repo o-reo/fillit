@@ -6,7 +6,7 @@
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/23 18:58:38 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/27 15:25:26 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/11/29 15:24:38 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -99,7 +99,7 @@ t_tetris	**read_tetris(t_tetris **tets, char *filename)
 	valid[2] = -1;
 	buff[20] = '\n';
 	fd = open(filename, O_RDONLY);
-	while (valid[0] && (valid[2]++ < 26) && valid[1] > 20 && buff[20] == '\n')
+	while (valid[0] && (valid[2]++ <= 26) && valid[1] > 20 && buff[20] == '\n')
 	{
 		valid[1] = read(fd, buff, 21);
 		bloc = ft_strsplit(buff, '\n');

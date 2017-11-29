@@ -6,7 +6,7 @@
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/27 11:48:06 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/27 18:02:38 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/11/29 15:15:30 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,60 +34,59 @@ void	init_grid(char **grid, int	size)
 	}
 }
 
-int		test_tet(char **grid, t_tetris *tet, int *off)
+int		put_tet(char **grid, t_tetris *tet, int letter, int *off)
 {
 	int		i;
 	int		ok;
 
 	i = 0;
 	ok = 1;
-	while (i < 4)
+	while (i < 4 && ok)
 	{
 		ok = ok && (grid[tet->blocs[i].y + off[1]][tet->blocs[i].x + off[0]] == '.');
+			if (ok && off[2])
+				grid[tet->blocs[i].y + off[1]][tet->blocs[i].x + off[0]] = 'A' + letter;
 		i++;
 	}
 	return (ok);
 }
 
-int		put_tet(char **grid, t_tetris *tet, int letter, int *off)
+int		test_tet(char **grid, t_tetris **tet, int index, int size)
 {
 	int		i;
+	int		ok;
+	int		off[3];
 
 	i = 0;
-	while (i < 4)
+	ok = 1;
+	off[0] = 0;
+	off[1] = 0;
+	off[2] = 0;
+	while (off[0] < size && tet[index])
 	{
-		grid[tet->blocs[i].y + off[1]][tet->blocs[i].x + off[0]] = 'A' + letter;
-		i++;
+		while (off[1] < size)
+		{
+			ok = ok && put_tet(grid, tet[index], index, off);
+			if (ok && test_tet(grid, tet, index + 1, size))
+			{
+				off[2] = 1;
+				put_tet(grid, tet[index], index, off);
+				return (1);
+			}
+			off[1]++;
+		}
+		off[0]++;
 	}
-	return (1);
+	return (ok);
 }
 
 int		try_grid(t_tetris **tets, int size)
 {
 	char	*grid[size + 1];
-	int		i;
-	int		off[2];
 	int		ok;
 
-	i = 0;
 	init_grid(grid, size);
-	while (tets[i])
-	{
-		off[1] = 0;
-		ok = 0;
-		while (off[1] < size && !ok)
-		{
-			off[0] = 0;
-			while (off[0] < size && !ok)
-			{
-				if(test_tet(grid, tets[i], off))
-					ok = put_tet(grid, tets[i], i, off);
-				off[0]++;
-			}
-			off[1]++;
-		}
-		i++;
-	}
+	ok = test_tet(grid, tets, 0, size);
 	ft_puttab_fd(grid, size, 1);
 	return (ok);
 }
