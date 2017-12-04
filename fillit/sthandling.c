@@ -6,7 +6,7 @@
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/26 16:32:44 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/27 15:31:20 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/11/30 16:59:54 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,7 +74,7 @@ t_tetris	*to_tetris(char **bloc)
 		{
 			tet->blocs[it].x = bloc[i][j] == '#' ? j : tet->blocs[it].x;
 			tet->blocs[it].y = bloc[i][j] == '#' ? i : tet->blocs[it].y;
-			it = bloc[i][j] == '#' ? it + 1 : it;
+			it += (bloc[i][j] == '#');
 			j++;
 		}
 		i++;

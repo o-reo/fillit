@@ -6,7 +6,7 @@
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/27 11:48:06 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/29 15:15:30 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/04 17:34:31 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,27 +56,30 @@ int		test_tet(char **grid, t_tetris **tet, int index, int size)
 	int		i;
 	int		ok;
 	int		off[3];
-
 	i = 0;
-	ok = 1;
+	ok = 0;
 	off[0] = 0;
 	off[1] = 0;
 	off[2] = 0;
-	while (off[0] < size && tet[index])
+
+	while (!ok && off[1] < size)
 	{
-		while (off[1] < size)
+		while (!ok && off[0] < size)
 		{
-			ok = ok && put_tet(grid, tet[index], index, off);
-			if (ok && test_tet(grid, tet, index + 1, size))
+			if(test_tet(grid, tet, index + 1, size))
 			{
 				off[2] = 1;
-				put_tet(grid, tet[index], index, off);
-				return (1);
+				ok = put_tet(grid, tet[index], index, off);
 			}
-			off[1]++;
+			off[0]++;
 		}
-		off[0]++;
+		off[1]++;
 	}
+	off[1]--;
+	off[2]--;
+	put_tet(grid, tet[index], index, off);
+	if (tet[index + 1])
+		test_tet(grid, tet, index + 1, size);
 	return (ok);
 }
 
