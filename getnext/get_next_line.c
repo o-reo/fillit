@@ -6,7 +6,7 @@
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/29 15:58:24 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/11 17:20:53 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/11 18:18:40 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,15 +32,14 @@ int			get_next_line(int const fd, char **line)
 	static char				*str = NULL;
 	int						end;
 
+	if (read(fd, NULL, 0))
+		return (-1);
 	end = BUFF_SIZE;
 	while (end)
 	{
 		end = read(fd, buff, BUFF_SIZE);
 		buff[end] = '\0';
-		if (!str)
-			str = ft_strdup(buff);
-		else
-			str = ft_strjoin(str, buff);
+		str = !str ? ft_strdup(buff) : ft_strjoin(str, buff);
 		if (get_new_index(str) >= 0)
 		{
 			*line = ft_strsub(str, 0, get_new_index(str));
@@ -48,6 +47,10 @@ int			get_next_line(int const fd, char **line)
 							ft_strlen(str) - get_new_index(str));
 			return (1);
 		}
+		else if (end < BUFF_SIZE && end)
+			*line = ft_strdup(str);
+		if (get_new_index(str) >= 0 || (end < BUFF_SIZE && end))
+			return (1);
 	}
 	return (0);
 }
