@@ -6,38 +6,39 @@
 #    By: eruaud <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 17:44:25 by eruaud            #+#    #+#              #
-#    Updated: 2017/11/27 15:46:29 by eruaud      ###    #+. /#+    ###.fr      #
+#    Updated: 2017/12/13 14:57:02 by eruaud      ###    #+. /#+    ###.fr      #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I libft/includes/
+CFLAGS = -Wall -Wextra -Werror
 FUNC = reading sthandling engine main
-OBJ = $(addsuffix .o, $(FUNC))
 SRC = $(addsuffix .c, $(FUNC))
+OBJ = $(addsuffix .o, $(FUNC))
+HEADER = -I libft/includes/
+LDLIBS = -lft
+LDFLAGS = -L libft/
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) -L libft/ -lft
-
-clibft:
+lib:
 	make -C libft
 
-$(OBJ) : clibft
-	$(CC) $(CFLAGS) -c $(SRC)
+$(NAME): lib $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(HEADER) $(LDLIBS) $(LDFLAGS)
 
-clibftclean:
-	make -C libft/ clean
+%.o : %.c
+	$(CC) $(CFLAGS) -o $@ -c $< $(HEADER)
 
-clean: clibftclean
+clean:
 	/bin/rm -f $(OBJ)
+	make -C libft clean
 
-clibftfclean:
-	make -C libft/ fclean
-
-fclean: clean clibftfclean
+fclean: clean
 	/bin/rm -f $(NAME)
+	make -C libft fclean
 
 re: fclean $(NAME)
+
+.PHONY = all clean fclean re lib

@@ -6,30 +6,12 @@
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/26 16:32:44 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/30 16:59:54 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/09 16:41:20 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fill.h"
-
-void		print_tetris(t_tetris *tet)
-{
-	int		i;
-
-	i = 0;
-	while (i < 4)
-	{
-		ft_putstr("Bloc ");
-		ft_putnbr(i + 1);
-		ft_putstr(" ->  x : ");
-		ft_putnbr(tet->blocs[i].x);
-		ft_putstr(" - y : ");
-		ft_putnbr(tet->blocs[i].y);
-		ft_putchar('\n');
-		i++;
-	}
-}
 
 t_tetris	*normalize(t_tetris *tet)
 {

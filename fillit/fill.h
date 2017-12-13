@@ -6,14 +6,13 @@
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/23 18:29:35 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/11/30 19:56:56 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/09 16:41:29 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef		FILL_H
-# define	FILL_H
-
+#ifndef FILL_H
+# define FILL_H
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -28,8 +27,8 @@ typedef struct		s_tetris
 {
 	t_point			blocs[4];
 }					t_tetris;
-t_tetris			**read_tetris(t_tetris **tets, char *filename);
+int					read_tetris(t_tetris **tets, char *filename);
 t_tetris			*to_tetris(char **bloc);
-void				print_tetris(t_tetris *tet);
 int					try_grid(t_tetris **tets, int size);
+
 #endif
