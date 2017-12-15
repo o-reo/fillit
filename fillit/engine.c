@@ -6,7 +6,7 @@
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/27 11:48:06 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/13 17:41:08 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/15 16:51:40 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,7 +86,6 @@ int		test_tet(char **grid, t_tetris **tet, int index, int size)
 	int		ok;
 
 	i = 0;
-	off[0] = 0;
 	off[1] = 0;
 	off[2] = 1;
 	if (!tet[index])

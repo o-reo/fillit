@@ -6,7 +6,7 @@
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/23 18:54:38 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/13 18:30:41 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/15 17:06:36 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@ int		ft_sqrt(int n)
 
 int		main(int ac, char **av)
 {
-	t_tetris	*tets[27];
+	t_tetris	*tets[30];
 	int			ok;
 	int			i;
 	int			nb;
@@ -37,10 +37,8 @@ int		main(int ac, char **av)
 	}
 	nb = read_tetris(tets, av[1]);
 	ok = 0;
-	ft_putnbr(nb);
 	i = ft_sqrt(4 * nb);
-	/*if (nb > 0 && nb <= 26 && *tets)*/
-	if (nb > 0 && *tets)
+	if (nb > 0 && nb <= 26 && *tets)
 	{
 		while (!ok)
 		{
