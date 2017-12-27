@@ -6,24 +6,46 @@
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2017/11/29 15:58:24 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/11 18:18:40 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Updated: 2017/12/27 16:31:15 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <string.h>
 
-int			get_new_index(char *str)
+int			get_new_index(char *str, int len)
 {
 	int		newline;
 
+	if (!str)
+		return (-1);
 	newline = 0;
-	while (str[newline] && str[newline] != '\n')
+	while (len-- && str[newline] != '\n')
 		newline++;
 	if (str[newline] != '\n')
 		return (-1);
 	return (newline);
+}
+
+int			copy_line(char **ptr)
+{
+	char	*tmp;
+
+	tmp = ft_strdup(*ptr);
+	free(*ptr);
+	*ptr = ft_strsub(tmp, get_new_index(tmp, ft_strlen(tmp)) + 1,
+			ft_strlen(tmp) - get_new_index(tmp, ft_strlen(tmp)));
+	free(tmp);
+	return (1);
+}
+
+char		*str_merge(char *s1, char *s2)
+{
+	char	*str;
+
+	str = ft_strjoin(s1, s2);
+	free(s1);
+	return (str);
 }
 
 int			get_next_line(int const fd, char **line)
@@ -34,23 +56,21 @@ int			get_next_line(int const fd, char **line)
 
 	if (read(fd, NULL, 0))
 		return (-1);
-	end = BUFF_SIZE;
-	while (end)
+	while ((end = read(fd, buff, BUFF_SIZE)))
 	{
-		end = read(fd, buff, BUFF_SIZE);
 		buff[end] = '\0';
-		str = !str ? ft_strdup(buff) : ft_strjoin(str, buff);
-		if (get_new_index(str) >= 0)
+		str = !str ? ft_strdup(buff) : str_merge(str, buff);
+		if (get_new_index(str, ft_strlen(str)) >= 0)
 		{
-			*line = ft_strsub(str, 0, get_new_index(str));
-			str = ft_strsub(str, get_new_index(str) + 1,
-							ft_strlen(str) - get_new_index(str));
-			return (1);
+			*line = ft_strsub(str, 0, get_new_index(str, ft_strlen(str)));
+			return (copy_line(&str));
 		}
-		else if (end < BUFF_SIZE && end)
-			*line = ft_strdup(str);
-		if (get_new_index(str) >= 0 || (end < BUFF_SIZE && end))
-			return (1);
+	}
+	if (str && ft_strlen(str) > 0 && !end)
+	{
+		*line = ft_strdup(str);
+		str = NULL;
+		return (1);
 	}
 	return (0);
 }

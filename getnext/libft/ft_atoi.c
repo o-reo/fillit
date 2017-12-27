@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.h                                  .::    .:/ .      .::   */
+/*   ft_atoi.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/29 16:21:48 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/27 16:32:42 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/23 09:35:29 by eruaud       #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/23 09:35:32 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 5
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <libft.h>
-# include <fcntl.h>
+int		ft_atoi(char *str)
+{
+	int i;
+	int res;
+	int minflag;
 
-int		get_next_line(int const fd, char **line);
-
-#endif
+	i = 0;
+	minflag = 1;
+	res = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '-')
+		minflag = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] <= '9' && str[i] >= '0')
+	{
+		res = (res * 10) + str[i] - '0';
+		i++;
+	}
+	return (minflag * res);
+}

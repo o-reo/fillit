@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.h                                  .::    .:/ .      .::   */
+/*   ft_strcmp.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/29 16:21:48 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/27 16:32:42 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/23 09:41:43 by eruaud       #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/23 09:41:45 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 5
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <libft.h>
-# include <fcntl.h>
+int		ft_strcmp(const char *s1, const char *s2)
+{
+	int i;
+	int cmp;
 
-int		get_next_line(int const fd, char **line);
-
-#endif
+	cmp = 0;
+	i = 0;
+	while (s1[i] && !cmp)
+	{
+		cmp = ((unsigned char *)s1)[i] - ((unsigned char *)s2)[i];
+		i++;
+	}
+	if (!s1[i] && s2[i])
+		return (-(unsigned char)s2[i]);
+	return (cmp);
+}

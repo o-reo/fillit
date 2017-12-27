@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.h                                  .::    .:/ .      .::   */
+/*   ft_strtrim.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/29 16:21:48 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/27 16:32:42 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/11/23 09:44:19 by eruaud       #+#   ##    ##    #+#       */
+/*   Updated: 2017/11/23 12:36:39 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 5
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <libft.h>
-# include <fcntl.h>
+#include "libft.h"
 
-int		get_next_line(int const fd, char **line);
+char		*ft_strtrim(char const *s)
+{
+	char	*so;
+	int		i;
+	int		j;
 
-#endif
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (s[i] && ft_isspace(s[i]))
+		i++;
+	j = ft_strlen(s) - 1;
+	while (j >= 0 && ft_isspace(s[j]))
+		j--;
+	if (j < 0)
+		so = ft_strdup("\0");
+	else
+		so = ft_strsub(s, i, j - i + 1);
+	if (!so)
+		return (NULL);
+	return (so);
+}

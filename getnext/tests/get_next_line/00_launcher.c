@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.h                                  .::    .:/ .      .::   */
+/*   00_launcher.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/29 16:21:48 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/27 16:32:42 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/23 11:48:51 by eruaud       #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/27 16:18:14 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 5
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <libft.h>
-# include <fcntl.h>
+#include "tests.h"
 
-int		get_next_line(int const fd, char **line);
+int		gnl_launcher(void)
+{
+	t_unit_test		*testlist;
 
-#endif
+	testlist = NULL;
+	ft_putendl("---GET NEXT LINE");
+	load_test(&testlist, "Lenght 1 multiple lines", &gnl_test_01);
+	load_test(&testlist, "Increasing length input", &gnl_test_02);
+	load_test(&testlist, "Increasing wo EOL", &gnl_test_03);
+	load_test(&testlist, "NULL at the beginning", &gnl_test_04);
+	load_test(&testlist, "Empty Line", &gnl_test_05);
+	return (launch_tests(&testlist));
+}
+

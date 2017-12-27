@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.h                                  .::    .:/ .      .::   */
+/*   01_test.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/29 16:21:48 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/27 16:32:42 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/03 19:25:23 by eruaud       #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/27 15:49:15 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 5
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <libft.h>
-# include <fcntl.h>
+#include "tests.h"
 
-int		get_next_line(int const fd, char **line);
+int				gnl_test_03(void)
+{
+	int		fd;
+	char	*line;
+	char	str[100];
+	int		c;
+	int		ok;
 
-#endif
+	fd = open("in3.tst", O_RDONLY);
+	c = 1;
+	ok = 1;
+	line = "";
+	while ((c = get_next_line(fd, &line)) == 1)
+		ok = ft_strcmp(line, ft_strcat(str, "a"));
+	close(fd);
+	return(ok ? 0 : -1);
+}

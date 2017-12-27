@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.h                                  .::    .:/ .      .::   */
+/*   01_test.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/29 16:21:48 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/27 16:32:42 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/03 19:25:23 by eruaud       #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/27 16:18:04 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 5
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <libft.h>
-# include <fcntl.h>
+#include "tests.h"
 
-int		get_next_line(int const fd, char **line);
+int				gnl_test_05(void)
+{
+	int		fd;
+	char	*str = NULL;
+	int		c;
 
-#endif
+	fd = open("in1.tst", O_RDONLY);
+	c = 1;
+	c = get_next_line(fd, &str);
+	ft_putendl("~~~DEBUG~~~");
+	ft_putendl(str);
+	ft_putstr("return :: ");
+	ft_putnbr(c);
+	ft_putendl("");
+	/*c = get_next_line(fd, &str);*/
+	/*ft_putendl(str);*/
+	/*ft_putstr("return :: ");*/
+	/*ft_putnbr(c);*/
+	/*ft_putendl("");*/
+	close(fd);
+	return(c ? 0 : -1);
+}

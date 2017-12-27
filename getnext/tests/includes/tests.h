@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.h                                  .::    .:/ .      .::   */
+/*   tests.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/29 16:21:48 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/27 16:32:42 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/23 11:27:17 by eruaud       #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/27 16:18:34 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 5
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <libft.h>
-# include <fcntl.h>
+#ifndef TESTS_H
+# define TESTS_H
 
-int		get_next_line(int const fd, char **line);
+#include "libunit.h"
+#include "libft.h"
+#include "../../get_next_line.h"
+#include <string.h>
+
+# define NUM_TEST 5
+
+int		gnl_launcher(void);
+int		gnl_test_01(void);
+int		gnl_test_02(void);
+int		gnl_test_03(void);
+int		gnl_test_04(void);
+int		gnl_test_05(void);
 
 #endif

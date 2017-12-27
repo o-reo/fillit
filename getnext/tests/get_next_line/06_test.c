@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_next_line.h                                  .::    .:/ .      .::   */
+/*   01_test.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: eruaud <marvin@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2017/11/29 16:21:48 by eruaud       #+#   ##    ##    #+#       */
-/*   Updated: 2017/12/27 16:32:42 by eruaud      ###    #+. /#+    ###.fr     */
+/*   Created: 2017/12/03 19:25:23 by eruaud       #+#   ##    ##    #+#       */
+/*   Updated: 2017/12/27 14:12:48 by eruaud      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 5
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <libft.h>
-# include <fcntl.h>
+#include "tests.h"
 
-int		get_next_line(int const fd, char **line);
+int				gnl_test_06(void)
+{
+	int		fd;
+	char	*line;
+	int		c;
 
-#endif
+	fd = open("in4.tst", O_RDONLY);
+	c = get_next_line(fd, &line);
+	close (fd);
+	return((!c && !line) ? -1 : 0);
+}
